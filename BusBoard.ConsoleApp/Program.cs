@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -14,18 +15,28 @@ namespace BusBoard
     {
         static void Main(string[] args)
         {
+            string input  = GetBusStopCode();
+            var busData = TflApi.GetPostCodeData();
+
+            //DisplayResult(busData);
+        }
+
+        private static string GetBusStopCode()
+        {
             //ie: 490008660N
             Console.Write("Please enter your bus stop code: ");
             var input = Console.ReadLine();
-            RestClient client = new RestClient("https://api.tfl.gov.uk/");
-            RestRequest request = new RestRequest($"StopPoint/{input}/Arrivals?app_id=f7aa3bf5&app_key=b9eb9b0ca98ee8ce2ccf974e17594c0f", Method.GET);
-            IRestResponse<List<Bus>> response = client.Get<List<Bus>>(request);
+            return input;
+        }
 
-            foreach (Bus bus in response.Data)
+
+
+        private static void DisplayResult(IEnumerable<Bus> busData)
+        {
+            foreach (Bus bus in busData)
             {
-                Console.WriteLine($"Bus Number: {bus.LineName}, ETA: {bus.TimeToStation}, Heading to: {bus.DestinationName}");
+                Console.WriteLine($"Bus Number: {bus.LineName}, ETA: {(bus.TimeToStation/60)} min, Heading to: {bus.DestinationName}");
             }
-
         }
     }
 }
