@@ -19,12 +19,11 @@ namespace BusBoard
             var input = Console.ReadLine();
             RestClient client = new RestClient("https://api.tfl.gov.uk/");
             RestRequest request = new RestRequest($"StopPoint/{input}/Arrivals?app_id=f7aa3bf5&app_key=b9eb9b0ca98ee8ce2ccf974e17594c0f", Method.GET);
-            IRestResponse response = client.Get(request);
-            var jsonConvert = JsonConvert.DeserializeObject<List<JObject>>(response.Content);
-            
-            foreach (var o in jsonConvert)
+            IRestResponse<List<Bus>> response = client.Get<List<Bus>>(request);
+
+            foreach (Bus bus in response.Data)
             {
-                Console.WriteLine("Bus Number: {0}, ETA: {1}, Heading to: {2}", o.Property("lineName").Value, o.Property("expectedArrival").Value, o.Property("towards").Value);
+                Console.WriteLine($"Bus Number: {bus.LineName}, ETA: {bus.TimeToStation}, Heading to: {bus.DestinationName}");
             }
 
         }
