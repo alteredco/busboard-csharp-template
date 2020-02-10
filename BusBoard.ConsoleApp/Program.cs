@@ -31,12 +31,20 @@ namespace BusBoard
 
 
 
-        private static void DisplayResult(IEnumerable<Bus> busData)
+        private static void DisplayBusResult(IEnumerable<Bus> busData)
         {
             foreach (Bus bus in busData)
             {
                 Console.WriteLine($"Bus Number: {bus.LineName}, ETA: {(bus.TimeToStation/60)} min, Heading to: {bus.DestinationName}");
             }
         }
+        
+        // private static void DisplayPostCodeResult(IEnumerable<Location> postCodeData)
+        // {
+        //     foreach (Bus bus in busData)
+        //     {
+        //         Console.WriteLine($"Bus Number: {bus.LineName}, ETA: {(bus.TimeToStation/60)} min, Heading to: {bus.DestinationName}");
+        //     }
+        // }
     }
 }
