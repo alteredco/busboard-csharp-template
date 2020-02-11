@@ -28,16 +28,18 @@ namespace BusBoard
             return postcodesResponse.Data;
         }
 
-        // public static StopRadius GetStopPointData(decimal lat, decimal lon)
-        // {
-        //     //get request to tfl stop point radius api
-        //     RestClient stopRadiusClient = new RestClient("https://api.tfl.gov.uk/");
-        //     IRestRequest stopRadiusRequest = new RestRequest("StopPoint", Method.GET)
-        //         .AddQueryParameter("stopTypes", "NaptanPublicBusCoachTram")
-        //         .AddQueryParameter("lat", lat)
-        //         .AddQueryParameter("lon", lon);
-        //     IRestResponse<StopRadius> stopRadiusResponse = stopRadiusClient.Get<StopRadius>(stopRadiusRequest);
-        //     return stopRadiusResponse.Data;
-        // }
+        public static StopRadius GetStopPointData(decimal latitude, decimal longitude)
+        {
+            var lat = latitude.ToString();
+            var lon = longitude.ToString();
+            //get request to tfl stop point radius api
+            RestClient stopRadiusClient = new RestClient("https://api.tfl.gov.uk/");
+            IRestRequest stopRadiusRequest = new RestRequest("StopPoint", Method.GET)
+                .AddQueryParameter("stopTypes", "NaptanPublicBusCoachTram")
+                .AddQueryParameter("lat", lat)
+                .AddQueryParameter("lon", lon);
+            IRestResponse<StopRadius> stopRadiusResponse = stopRadiusClient.Get<StopRadius>(stopRadiusRequest);
+            return stopRadiusResponse.Data;
+        }
     }
 }

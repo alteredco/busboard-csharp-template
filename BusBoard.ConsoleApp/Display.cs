@@ -34,7 +34,13 @@ namespace BusBoard
         {
             Console.WriteLine("Lat: {0}, Lon: {1}, Region: {2}", postCodeData.Result.Latitude, postCodeData.Result.Longitude, postCodeData.Result.Region);
         }
-        
-        // public static void DisplayStopRadiusResult()
+
+        public static void DisplayStopRadiusResult(StopRadius stopPointData)
+        {
+            foreach (var id in stopPointData.StopPoints.NaptanId)
+            {
+                Console.WriteLine("{0}", id);
+            }
+        }
     }
 }
