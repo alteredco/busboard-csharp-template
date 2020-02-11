@@ -13,15 +13,6 @@ namespace BusBoard
         //     return input;
         // }
 
-        public static void DisplayBusResult(IEnumerable<Bus> busData)
-        {
-            foreach (Bus bus in busData)
-            {
-                Console.WriteLine(
-                    $"Bus Number: {bus.LineName}, ETA: {(bus.TimeToStation / 60)} min, Heading to: {bus.DestinationName}");
-            }
-        }
-        
         public static string GetPostCode()
         {
             //ie: NW5 1TL
@@ -30,16 +21,12 @@ namespace BusBoard
             return input;
         }
 
-        // public static void DisplayPostCodeResult(Location postCodeData)
-        // {
-        //     Console.WriteLine("Lat: {0}, Lon: {1}, Region: {2}", postCodeData.Result.Latitude, postCodeData.Result.Longitude, postCodeData.Result.Region);
-        // }
-
-        public static void DisplayStopRadiusResult(StopRadius stopPointData)
+        public static void DisplayBusResult(IEnumerable<Bus> busData)
         {
-            foreach (StopPoint stopPoint in stopPointData.stopPoints)
+            foreach (Bus bus in busData)
             {
-                Console.WriteLine(stopPoint.NaptanId);
+                Console.WriteLine(
+                    $"At Station: {bus.StationName} -- Bus Number: {bus.LineName}, ETA: {(bus.TimeToStation / 60)} min, Heading to: {bus.DestinationName}");
             }
         }
     }

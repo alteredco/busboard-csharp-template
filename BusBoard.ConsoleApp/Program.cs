@@ -15,12 +15,22 @@ namespace BusBoard
     {
         static void Main(string[] args)
         {
-            // string input  = GetPostCode();
-            var postcodeData = TflApi.GetPostCodeData();
+            string input  = Display.GetPostCode();
+            var postcodeData = TflApi.GetPostCodeData(input);
             var stopPointData = TflApi.GetStopPointData(postcodeData.Result.Latitude, postcodeData.Result.Longitude);
             
-            Display.DisplayStopRadiusResult(stopPointData);
+            getNearestStops(stopPointData);
         }
-        
+
+        private static void getNearestStops(StopRadius stopPointData)
+        {
+            foreach (StopPoint stopPoint in stopPointData.stopPoints)
+            {
+                var busData = TflApi.GetBusStopData(stopPoint.NaptanId);
+                Console.WriteLine("================================");
+                Display.DisplayBusResult(busData);
+                Console.WriteLine("================================");
+            }
+        }
     }
 }
