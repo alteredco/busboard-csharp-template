@@ -30,16 +30,16 @@ namespace BusBoard
             return input;
         }
 
-        public static void DisplayPostCodeResult(Location postCodeData)
-        {
-            Console.WriteLine("Lat: {0}, Lon: {1}, Region: {2}", postCodeData.Result.Latitude, postCodeData.Result.Longitude, postCodeData.Result.Region);
-        }
+        // public static void DisplayPostCodeResult(Location postCodeData)
+        // {
+        //     Console.WriteLine("Lat: {0}, Lon: {1}, Region: {2}", postCodeData.Result.Latitude, postCodeData.Result.Longitude, postCodeData.Result.Region);
+        // }
 
         public static void DisplayStopRadiusResult(StopRadius stopPointData)
         {
-            foreach (var id in stopPointData.StopPoints.NaptanId)
+            foreach (StopPoint stopPoint in stopPointData.stopPoints)
             {
-                Console.WriteLine("{0}", id);
+                Console.WriteLine(stopPoint.NaptanId);
             }
         }
     }

@@ -32,6 +32,7 @@ namespace BusBoard
         {
             var lat = latitude.ToString();
             var lon = longitude.ToString();
+            
             //get request to tfl stop point radius api
             RestClient stopRadiusClient = new RestClient("https://api.tfl.gov.uk/");
             IRestRequest stopRadiusRequest = new RestRequest("StopPoint", Method.GET)

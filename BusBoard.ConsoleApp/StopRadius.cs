@@ -4,6 +4,6 @@ namespace BusBoard
 {
     public class StopRadius
     {
-        public StopPoints StopPoints { get; set; }
+        public IEnumerable<StopPoint> stopPoints { get; set; }
     }
 }

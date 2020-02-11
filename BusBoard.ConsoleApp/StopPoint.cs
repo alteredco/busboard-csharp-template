@@ -1,6 +1,6 @@
 ﻿namespace BusBoard
 {
-    public class StopPoints
+    public class StopPoint
     {
         public string NaptanId { get; set; }
     }

@@ -18,8 +18,7 @@ namespace BusBoard
             // string input  = GetPostCode();
             var postcodeData = TflApi.GetPostCodeData();
             var stopPointData = TflApi.GetStopPointData(postcodeData.Result.Latitude, postcodeData.Result.Longitude);
-
-            Display.DisplayPostCodeResult(postcodeData);
+            
             Display.DisplayStopRadiusResult(stopPointData);
         }
         
