@@ -15,36 +15,12 @@ namespace BusBoard
     {
         static void Main(string[] args)
         {
-            string input  = GetBusStopCode();
-            var busData = TflApi.GetPostCodeData();
+            // string input  = GetPostCode();
+            var postcodeData = TflApi.GetPostCodeData();
+            var stopPointData = TflApi.GetStopPointData(postcodeData.Result.Latitude, postcodeData.Result.Longitude);
 
-            //DisplayResult(busData);
-        }
-
-        private static string GetBusStopCode()
-        {
-            //ie: 490008660N
-            Console.Write("Please enter your bus stop code: ");
-            var input = Console.ReadLine();
-            return input;
-        }
-
-
-
-        private static void DisplayBusResult(IEnumerable<Bus> busData)
-        {
-            foreach (Bus bus in busData)
-            {
-                Console.WriteLine($"Bus Number: {bus.LineName}, ETA: {(bus.TimeToStation/60)} min, Heading to: {bus.DestinationName}");
-            }
+            Display.DisplayPostCodeResult(postcodeData);
         }
         
-        // private static void DisplayPostCodeResult(IEnumerable<Location> postCodeData)
-        // {
-        //     foreach (Bus bus in busData)
-        //     {
-        //         Console.WriteLine($"Bus Number: {bus.LineName}, ETA: {(bus.TimeToStation/60)} min, Heading to: {bus.DestinationName}");
-        //     }
-        // }
     }
 }

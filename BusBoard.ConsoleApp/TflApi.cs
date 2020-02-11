@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using RestSharp;
 
@@ -16,13 +18,26 @@ namespace BusBoard
             return fiveBuses;
         }
 
-        public static IEnumerable<Location> GetPostCodeData()
+        public static Location GetPostCodeData()
         {
             //get request to postcodes.io
-            RestClient postcodesClient = new RestClient("http://api.postcodes.io/postcodes/");
-            RestRequest postcodesRequest = new RestRequest("NW5 1TL", Method.GET);
-            IRestResponse<List<Location>> postcodesResponse = postcodesClient.Get<List<Location>>(postcodesRequest);
+            var postcode = "NW5 1TL";
+            RestClient postcodesClient = new RestClient("http://api.postcodes.io/");
+            IRestRequest postcodesRequest = new RestRequest($"/postcodes/{postcode}", Method.GET);
+            IRestResponse<Location> postcodesResponse = postcodesClient.Get<Location>(postcodesRequest);
             return postcodesResponse.Data;
         }
+
+        // public static StopRadius GetStopPointData(decimal lat, decimal lon)
+        // {
+        //     //get request to tfl stop point radius api
+        //     RestClient stopRadiusClient = new RestClient("https://api.tfl.gov.uk/");
+        //     IRestRequest stopRadiusRequest = new RestRequest("StopPoint", Method.GET)
+        //         .AddQueryParameter("stopTypes", "NaptanPublicBusCoachTram")
+        //         .AddQueryParameter("lat", lat)
+        //         .AddQueryParameter("lon", lon);
+        //     IRestResponse<StopRadius> stopRadiusResponse = stopRadiusClient.Get<StopRadius>(stopRadiusRequest);
+        //     return stopRadiusResponse.Data;
+        // }
     }
 }

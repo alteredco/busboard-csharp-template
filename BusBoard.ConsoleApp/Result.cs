@@ -2,8 +2,8 @@
 {
     public class Result
     {
-        public Location Latitude { get; set; }
-        public Location Longitude { get; set; }
-        public Location Region { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
+        public string Region { get; set; }
     }
 }
