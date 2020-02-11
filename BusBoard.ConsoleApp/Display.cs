@@ -5,20 +5,12 @@ namespace BusBoard
 {
     public class Display
     {
-        // public static string GetBusStopCode()
-        // {
-        //     //ie: 490008660N
-        //     Console.Write("Please enter your bus stop code: ");
-        //     var input = Console.ReadLine();
-        //     return input;
-        // }
-
         public static string GetPostCode()
         {
             //ie: NW5 1TL
             Console.Write("Please enter your postcode: ");
-            var input = Console.ReadLine();
-            return input;
+                var input = Console.ReadLine();
+                return input;
         }
 
         public static void DisplayBusResult(IEnumerable<Bus> busData)

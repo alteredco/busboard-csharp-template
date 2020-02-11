@@ -15,11 +15,25 @@ namespace BusBoard
     {
         static void Main(string[] args)
         {
-            string input  = Display.GetPostCode();
-            var postcodeData = TflApi.GetPostCodeData(input);
-            var stopPointData = TflApi.GetStopPointData(postcodeData.Result.Latitude, postcodeData.Result.Longitude);
+            try
+            {
+                string input  = Display.GetPostCode();
+                var postcodeData = TflApi.GetPostCodeData(input);
+                var stopPointData = TflApi.GetStopPointData(postcodeData.Result.Latitude, postcodeData.Result.Longitude);
             
-            getNearestStops(stopPointData);
+                getNearestStops(stopPointData);
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine("You haven't entered your postcode correctly." + e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong... " + e.Message);
+                throw;
+            }
+            
         }
 
         private static void getNearestStops(StopRadius stopPointData)

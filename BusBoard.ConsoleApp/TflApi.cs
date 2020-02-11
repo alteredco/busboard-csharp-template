@@ -13,7 +13,8 @@ namespace BusBoard
             //get request to postcodes.io
             var postcode = input;
             RestClient postcodesClient = new RestClient("http://api.postcodes.io/");
-            IRestRequest postcodesRequest = new RestRequest($"/postcodes/{postcode}", Method.GET);
+            IRestRequest postcodesRequest = new RestRequest("/postcodes/{postcode}", Method.GET)
+                .AddUrlSegment("postcode", postcode);
             IRestResponse<Location> postcodesResponse = postcodesClient.Get<Location>(postcodesRequest);
             return postcodesResponse.Data;
         }
