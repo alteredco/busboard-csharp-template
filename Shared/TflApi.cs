@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace BusBoard
             return postcodesResponse.Data;
         }
 
-        public static StopRadius GetStopPointData(decimal latitude, decimal longitude)
+        private static StopRadius GetStopPointData(decimal latitude, decimal longitude)
         {
             var lat = latitude.ToString();
             var lon = longitude.ToString();
@@ -46,6 +47,13 @@ namespace BusBoard
             IRestResponse<List<Bus>> tflResponse = tflClient.Get<List<Bus>>(tflRequest);
             var fiveBuses = tflResponse.Data.OrderBy(x => x.TimeToStation).Take(5);
             return fiveBuses;
+        }
+
+        public static StopRadius GetStopsNearPostcode(string input)
+        {
+            var postcodeData = TflApi.GetPostCodeData(input);
+            var stopPointData = TflApi.GetStopPointData(postcodeData.Result.Latitude, postcodeData.Result.Longitude);
+            return stopPointData;
         }
     }
 }

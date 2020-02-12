@@ -18,10 +18,10 @@ namespace BusBoard
             try
             {
                 string input  = Display.GetPostCode();
-                var postcodeData = TflApi.GetPostCodeData(input);
-                var stopPointData = TflApi.GetStopPointData(postcodeData.Result.Latitude, postcodeData.Result.Longitude);
-            
-                getNearestStops(stopPointData);
+                var nearbyStops = TflApi.GetStopsNearPostcode(input);
+                
+                
+                getNearestStops(nearbyStops);
             }
             catch (NullReferenceException e)
             {
@@ -41,11 +41,11 @@ namespace BusBoard
             foreach (StopPoint stopPoint in stopPointData.stopPoints)
             {
                 var busData = TflApi.GetBusStopData(stopPoint.NaptanId);
-                var distanceAway = Convert.ToInt64(Convert.ToDouble(stopPoint.Distance));
                 Console.WriteLine("================================");
-                Console.WriteLine($"{distanceAway} feet away:");
+                Console.WriteLine($"{stopPoint.RoundedDistance} meters away:");
                 Display.DisplayBusResult(busData);
             }
         }
+        
     }
 }

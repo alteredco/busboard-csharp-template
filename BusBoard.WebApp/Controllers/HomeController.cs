@@ -25,7 +25,7 @@ namespace BusBoard.WebApp.Controllers
         [HttpGet("bus-info")]
         public IActionResult BusInfo(PostcodeSelection selection)
         {
-            var info = new BusInfo(selection.Postcode);
+            var info = new BusInfo(selection.GetNearestStops);
             return View(info);
         }
 

@@ -1,4 +1,6 @@
-﻿@model BusBoard.WebApp.ViewModel.BusInfo
+﻿@using BusBoard
+@using Microsoft.AspNetCore.Identity
+@model BusBoard.WebApp.ViewModel.BusInfo
 
 @{
   ViewData["Title"] = "Bus Information";
@@ -7,5 +9,16 @@
 <h2>BusInfo</h2>
 
 <div>
-    <p>You entered postcode @Model.Postcode</p>
+    <p>For postcode @Model.Postcode :</p>
+    @foreach (var stop in Model._nearestStops.stopPoints)
+    {
+
+        var busData = TflApi.GetBusStopData(stop.NaptanId);
+
+        foreach (var bus in busData)
+        {
+            <p>At Stop: @bus.StationName -- Bus Number: @bus.LineName, ETA: @bus.TimeToStation, Heading to: @bus.DestinationName </p>
+        }
+    }
+
 </div>
