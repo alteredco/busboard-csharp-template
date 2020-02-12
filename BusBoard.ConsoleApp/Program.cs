@@ -25,7 +25,7 @@ namespace BusBoard
             }
             catch (NullReferenceException e)
             {
-                Console.WriteLine("You haven't entered your postcode correctly." + e.Message);
+                Console.WriteLine("You haven't entered a valid postcode. Are you in London?" + e.Message);
                 throw;
             }
             catch (Exception e)
@@ -41,9 +41,10 @@ namespace BusBoard
             foreach (StopPoint stopPoint in stopPointData.stopPoints)
             {
                 var busData = TflApi.GetBusStopData(stopPoint.NaptanId);
+                var distanceAway = Convert.ToInt64(Convert.ToDouble(stopPoint.Distance));
                 Console.WriteLine("================================");
+                Console.WriteLine($"{distanceAway} feet away:");
                 Display.DisplayBusResult(busData);
-                Console.WriteLine("================================");
             }
         }
     }

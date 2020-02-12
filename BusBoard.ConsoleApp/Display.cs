@@ -9,7 +9,7 @@ namespace BusBoard
         {
             //ie: NW5 1TL
             Console.Write("Please enter your postcode: ");
-                var input = Console.ReadLine();
+                var input = Console.ReadLine().ToLower();
                 return input;
         }
 
@@ -17,8 +17,13 @@ namespace BusBoard
         {
             foreach (Bus bus in busData)
             {
+                int timeInSecs = bus.TimeToStation;
+                int seconds = bus.TimeToStation % 60;
+                int minutes = bus.TimeToStation / 60;
+                string eta = $"{minutes} mins:{seconds} secs";
+                
                 Console.WriteLine(
-                    $"At Station: {bus.StationName} -- Bus Number: {bus.LineName}, ETA: {(bus.TimeToStation / 60)} min, Heading to: {bus.DestinationName}");
+                    $"At Stop: {bus.StationName} -- Bus Number: {bus.LineName}, ETA: {eta}, Heading to: {bus.DestinationName}");
             }
         }
     }

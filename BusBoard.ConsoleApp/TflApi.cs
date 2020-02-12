@@ -36,9 +36,13 @@ namespace BusBoard
         
         public static IEnumerable<Bus> GetBusStopData(string input)
         {
+            var app_id = "f7aa3bf5";
+            var app_key = "b9eb9b0ca98ee8ce2ccf974e17594c0f";
             //get request to tfl api 
             RestClient tflClient = new RestClient("https://api.tfl.gov.uk/");
-            RestRequest tflRequest = new RestRequest($"StopPoint/{input}/Arrivals?app_id=f7aa3bf5&app_key=b9eb9b0ca98ee8ce2ccf974e17594c0f", Method.GET);
+            RestRequest tflRequest =
+                new RestRequest($"StopPoint/{input}/Arrivals?app_id={app_id}&app_key={app_key}",
+                    Method.GET);
             IRestResponse<List<Bus>> tflResponse = tflClient.Get<List<Bus>>(tflRequest);
             var fiveBuses = tflResponse.Data.OrderBy(x => x.TimeToStation).Take(5);
             return fiveBuses;
